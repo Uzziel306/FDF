@@ -46,7 +46,8 @@ int	getting_k(char *str, int *A)
 	{
 		if(ft_isdigit(str[b.i]) || str[b.i] == '-')
 			b.tempchr[b.j++] = str[b.i];
-		else if((str[b.i] == ' ' || str[b.i] == '\n') && (ft_isdigit(str[b.i + 1]) || str[b.i + 1] == '-' || str[b.i + 1] == '\0'))
+		else if((str[b.i] == ' ' || str[b.i] == '\n') && (ft_isdigit(str[b.i + 1]) \
+			|| str[b.i + 1] == '-' || str[b.i + 1] == '\0'))
 		{
 			A[b.k] = ft_atoi(b.tempchr);
 			b.tempchr = ft_strnew(0);
@@ -80,8 +81,8 @@ void	coordinates(int fd, t_fdf *f, char *argv)
 		a.ret = getting_k(a.str, f->coords.A[a.i]);
 		a.i++;
 		z++;
+		free(a.str);
 	}
-	printf("x : %d\ny : %d\n", a.ret, a.i);
 	f->coords.xs = a.ret;
 	f->coords.ys = a.i;
 }

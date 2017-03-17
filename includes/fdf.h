@@ -70,7 +70,7 @@ typedef struct		s_fdf
 	t_map				map;
 }					t_fdf;
 
-void		coordinates(int fd, t_fdf *f, char* argv);
-int			fdf_map(t_fdf *f);
+void				coordinates(int fd, t_fdf *f, char* argv);
+int					fdf_map(t_fdf *f);
 
 #endif

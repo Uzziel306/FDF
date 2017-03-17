@@ -16,11 +16,11 @@ static void	reset_map(t_fdf *f)
 {
 	f->coords.coord_z = 0;
 	f->coords.coord_y = 0;
-	f->coords.x_val = 1.00;
+	f->coords.x_val = 5.50;
 	f->coords.angle_y = cos(M_PI / 3);
 	f->coords.angle_z = f->coords.angle_y * sin(M_PI / 6);
 	f->coords.zoom = (f->coords.xs < 99) ? 100 - f->coords.ys : 8;
-	f->coords.iso = 1;
+	f->coords.iso = 3;
 	f->colors.red = 0x4F;
 	f->colors.green = 0x4F;
 	f->colors.blue = 0x4F;
@@ -38,13 +38,22 @@ static int my_key_funct(int keycode, t_fdf *f)
 {
 	if (keycode == 53)
 		exit(0);
-	 else if (keycode == 46)
+	else if (keycode == 46)
 			random_color(f);
-		else if (keycode == 15)
+	else if (keycode == 15)
 			reset_map(f);
+	else if (keycode == 126)
+		f->coords.coord_z += 7;
+	else if (keycode == 125)
+		f->coords.coord_z -= 7;
+	else if (keycode == 123)
+			f->coords.coord_y += 7;
+	else if (keycode == 124)
+			f->coords.coord_y -= 7;
+	printf("%d\n",keycode );
 	return (0);
 }
-
+// w = 13, a = 0, s = 1, d = 2, 126, 123, 125, 124
 void	drawing_base(int x, int y, void *mlx, void *win)
 {
 	int i;
@@ -75,7 +84,7 @@ int		main(int argc, char *argv[])
 		coordinates(f->coords.fd, f, argv[1]);
 		f->mlx.mlx = mlx_init();
 		f->mlx.win = mlx_new_window(f->mlx.mlx, WIN_WIDTH, WIN_HEIGHT, "FDF");
-		// drawing_base(f->coords.xs, f->coords.ys, f->mlx.mlx, f->mlx.win);
+		reset_map(f);
 		mlx_hook(f->mlx.win, 2, 3, my_key_funct, f);
 		mlx_loop_hook(f->mlx.mlx, fdf_map, f);
 		mlx_loop(f->mlx.mlx);
