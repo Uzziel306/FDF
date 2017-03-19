@@ -12,7 +12,7 @@ LIBFT_DIR = ./Libft/
 MINLBX_DIR = ./minilibx/
 
 # Source files and object files
-SRC_FILES = main.c coords.c map.c
+SRC_FILES = main.c coords.c map.c instructions.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths

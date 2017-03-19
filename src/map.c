@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asolis <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/19 02:54:44 by asolis            #+#    #+#             */
+/*   Updated: 2017/03/19 03:17:03 by asolis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static void	put_pixel(t_fdf *f, int y, int z, double uvector)
@@ -15,18 +27,13 @@ static void	put_pixel(t_fdf *f, int y, int z, double uvector)
 	}
 }
 
-// map = coords, image = map
-//height = ys. width = xs
-// y0 = y, z0 = z
-//width = xs , height = ys
-
 static void	draw_lines(t_fdf *f)
 {
-	double y;
-	double z;
-	double delta_y;
-	double delta_z;
-	double uvector;
+	double	y;
+	double	z;
+	double	delta_y;
+	double	delta_z;
+	double	uvector;
 
 	y = f->coords.y;
 	z = f->coords.z;
@@ -44,28 +51,27 @@ static void	draw_lines(t_fdf *f)
 	}
 }
 
-
 static void	draw_map(t_fdf *f, int y, int z, char c)
 {
 	int		yt;
 	int		zt;
 
 	yt = y - f->coords.xs / 2;
-	zt = z - f->coords.ys  / 2;
+	zt = z - f->coords.ys / 2;
 	f->coords.y = f->coords.angle_y * (yt - zt) * f->coords.zoom;
 	f->coords.z = f->coords.angle_z * (yt + zt) * f->coords.zoom;
-	f->coords.z -= f->coords.A[z][y] * f->coords.x_val;
+	f->coords.z -= f->coords.a[z][y] * f->coords.x_val;
 	if (c == 'w')
 	{
 		f->coords.y1 = f->coords.angle_y * ((yt + 1) - zt) * f->coords.zoom;
 		f->coords.z1 = f->coords.angle_z * ((yt + 1) + zt) * f->coords.zoom;
-		f->coords.z1 -= f->coords.A[z][y + 1] * f->coords.x_val;
+		f->coords.z1 -= f->coords.a[z][y + 1] * f->coords.x_val;
 	}
 	if (c == 'h')
 	{
 		f->coords.y1 = f->coords.angle_y * (yt - (zt + 1)) * f->coords.zoom;
 		f->coords.z1 = f->coords.angle_z * (yt + (zt + 1)) * f->coords.zoom;
-		f->coords.z1 -= f->coords.A[z + 1][y] * f->coords.x_val;
+		f->coords.z1 -= f->coords.a[z + 1][y] * f->coords.x_val;
 	}
 	f->coords.y += (WIN_WIDTH / 2) + f->coords.coord_y;
 	f->coords.y1 += (WIN_WIDTH / 2) + f->coords.coord_y;
@@ -74,15 +80,16 @@ static void	draw_map(t_fdf *f, int y, int z, char c)
 	draw_lines(f);
 }
 
-int	fdf_map(t_fdf *f)
+int			fdf_map(t_fdf *f)
 {
-	int y;
-	int z;
+	int		y;
+	int		z;
 
 	z = 0;
 	f->mlx.img = mlx_new_image(f->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
-	f->map.data = mlx_get_data_addr(f->mlx.img, &f->map.bp, &f->map.sl, &f->map.end);
-	while(f->coords.ys > z)
+	f->map.data = mlx_get_data_addr(f->mlx.img, &f->map.bp,\
+&f->map.sl, &f->map.end);
+	while (f->coords.ys > z)
 	{
 		y = 0;
 		while (f->coords.xs > y)
