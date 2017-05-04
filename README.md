@@ -1,6 +1,6 @@
 # FDF
 
-The basic proyect in graphical area, taking a '3D' map and printing it in your screen, try to understand the maths used them here
+The basic project in graphical area, taking a '3D' map and printing it in your screen, try to understand the maths used them here
 
 ------------------------------------------------------------------------------------------------------------------------------
 
