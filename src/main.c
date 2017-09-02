@@ -6,7 +6,7 @@
 /*   By: asolis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 15:28:49 by asolis            #+#    #+#             */
-/*   Updated: 2017/03/19 03:18:19 by asolis           ###   ########.fr       */
+/*   Updated: 2017/09/01 17:59:28 by asolis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int			main(int argc, char *argv[])
 	}
 	else
 	{
-		write(1, "error: you are not passing the all arguments\n", 45);
+		ft_putstr("./fdf test_maps/map color_1 color_2 color_3\n");
+		ft_putstr("Example: ./fdf test_map/42.fdf 234 432 432\n");
 		ft_putstr("READ THE INSTRUCTIONS.\n");
 	}
 	return (0);
