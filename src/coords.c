@@ -66,6 +66,7 @@ void			coordinates(int fd, t_fdf *f, char *argv)
 
 	z = 0;
 	a.i = 0;
+	f->coords.j = 0;
 	while (get_next_line(fd, &line))
 	{
 		f->coords.i = ft_strl(line);
